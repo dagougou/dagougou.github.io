@@ -61,21 +61,6 @@
         this.setNow(now);
     }
 
-    // Sequence.prototype.add = function(e){
-    //     for(var i = 0;i < this.)
-    // }
-
-    Sequence.prototype.delete = function (e) {
-        for (var i = 0; i < this.sequence.length; i++) {
-            if (this.sequence[i] == e) {
-                this.sequence.splice(i, 1);
-                return;
-            }
-        }
-        throw "没有该下标: " + index;
-    }
-
-
     Sequence.prototype.setNow = function (e) {
         for (var i = 0; i < this.sequence.length; i++) {
             if (this.sequence[i] == e) {
@@ -83,7 +68,7 @@
                 return;
             }
         }
-        throw "没有该下标: " + index;
+        console.info('out bounds' + this.index);
     }
 
     Sequence.prototype.now = function () {

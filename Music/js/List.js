@@ -45,6 +45,7 @@
                     self.playFunction(index);
                 }, false);
                 //设置当前播放位置
+                music.sequenceObj.setLen(self.list.length);      //重新设置长度（列表发生改变后都应该调用）
                 music.sequenceObj.setNow(now);
                 music.loadMusic(!music.audio.paused);
             });
@@ -91,6 +92,11 @@
     //搜索列表中点击index后发生的动作
     List.prototype.insertPlayFunction = function (listChild) {
         var self = music.listObj;
+
+        //如果没有时间
+        if(listChild.dt == undefined){
+            listChild.dt = 0;
+        }
         //如果播放列表已有这首歌，直接播放
         for (var i in self.list) {
             if (self.list[i].id == listChild.id && self.list[i].source == listChild.source) {
@@ -103,6 +109,7 @@
         //没有这首歌就插入播放列表
         self.insert(listChild, music.sequenceObj.next());        //插入到下一个位置
         music.sequenceObj.setNow(music.sequenceObj.now());              //播放插入这首
+        music.sequenceObj.setLen(self.list.length);      //重新设置长度（列表发生改变后都应该调用）
         music.loadMusic();           //播放
     }
     // 将list添加到html中hList元素中，并给每个元素添加点击事件callback
@@ -127,7 +134,7 @@
             self.sildebg = $('<div class="listSlide" style="width:100%"   ></div>');
             $(self.hList).before(self.sildebg);
         }
-        music.sequenceObj.setLen(list.length);      //重新设置长度（列表发生改变后都应该调用）
+        
         //创建新列表
         for (var i = start; i < len; i++) {
             var li = document.createElement('li');
@@ -137,7 +144,7 @@
                 '</span> <span style="float:left;width:30%;margin-right:0px;">' + list[i].name +
                 '</span>';
             //是否有时间
-            if (list[i].dt) {
+            if (list[i].dt!=undefined) {
                 html = html +
                     '<span style="width:3em;float:right;margin-right:10%">' + time +
                     '</span>'

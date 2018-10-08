@@ -9,7 +9,7 @@
         this.picId;
         this.lyricId;
         this.musicId;
-        this.sheetId = 3778678;
+        this.sheetId;
         //全局函数
         window.yue107 = function (e) {
             self.back = e;

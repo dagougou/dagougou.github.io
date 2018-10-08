@@ -95,7 +95,7 @@
         //判断是否为同一首歌
         if (self.listObj.list[now].id == self.preMusicId) {
             if (autoPlay && self.audio.paused) {
-                self.audio.play();
+                self.play();
             }
             return;
         }
@@ -116,6 +116,10 @@
 
         self.music.getMusic(function (m) {
             self.m = m;
+            if(self.m.music.url == ""){     //歌曲没有版权，加载下一首
+                self.sequenceObj.next();
+                self.loadMusic();
+            }
             self.audio.oncanplay = function () {
                 console.info('canplay');
                 if (autoPlay) {
@@ -178,8 +182,9 @@
         if (!self.listObj.list) {
             return;
         }
+        music.sequenceObj.index = 0;
         music.sequenceObj.setLen(music.listObj.list.length);
-
+        console.info(music.sequenceObj.now());
         //推入HTML中
         self.listObj.pushList(function (index) {
             self.listObj.playFunction(index);
@@ -225,13 +230,18 @@
             self.volume.find('.volumeBox').fadeToggle(300);
             return false;
         });
+        $(window).click(function () {
+            self.volume.find('.volumeBox').fadeOut(300);
+        })
         // 点击
         volumeMove.click(function (e) {
             changeVolume(e.offsetX);
+            return false;
         });
         //滑动
         $(window).mouseup(function () {
             volumeMove.unbind('mousemove');
+            return false;
         });
         volumeMove.mousedown(function () {
             volumeMove.mousemove(function (e) {
@@ -240,7 +250,7 @@
             });
             return false;
         });
-        changeVolume(20);
+        changeVolume(50);
         function changeVolume(offsetX) {
             if (offsetX < 6 || offsetX > volumeLen + 6) {
                 return;
@@ -250,7 +260,7 @@
             });
             var volume = parseFloat(((offsetX - 6) / volumeLen).toFixed(2));
             volume = volume < 0.05 ? 0 : volume;
-            if (volume == 0) {
+            if (volume == 0) {          //音量为0使用这个图标
                 self.volume.find('i').attr('class', 'fa fa-volume-off volumeButton');
             }
             else if (volume < 0.5) {
@@ -259,9 +269,9 @@
             else {
                 self.volume.find('i').attr('class', 'fa fa-volume-up volumeButton');
             }
-            console.info(volume);
             self.audio.volume = volume;
         }
+
 
         //进度条
         this.progress.onclick = function (e) {

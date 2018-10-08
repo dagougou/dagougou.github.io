@@ -78,13 +78,13 @@
                 console.info('down');
                 this.content.eq(i).slideDown(SmallScreen.SDELAY);
                 this.title.eq(i).css({
-                    background:'rgba(33, 149, 243, 0.836)'
+                    background: 'rgba(33, 149, 243, 0.836)'
                 });
             }
             else {
                 this.content.eq(i).slideUp(SmallScreen.SDELAY);
                 this.title.eq(i).css({
-                    background:'rgba(33, 149, 243, 0)'
+                    background: 'rgba(33, 149, 243, 0)'
                 });
             }
         }
@@ -98,9 +98,7 @@
         if (n == 1) {
             // music.sheetObj.sMenuObj.showMenu();
             music.sheetObj.showSheet();
-        }
-        else 
-        {
+        } else {
             music.sheetObj.backButton && music.sheetObj.backButton.hide();
         }
         if (n == 2) {
@@ -161,7 +159,7 @@
         //内容
         self.content.css({
             "width": innerWidth,
-            "height": innerHeight - 110 - Music.FLOOR + "px"
+            "height": innerHeight - 57 - Music.FLOOR + "px"
         });
         //返回顶部
         self.floatBoll.css({
