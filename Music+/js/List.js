@@ -92,6 +92,11 @@
     //搜索列表中点击index后发生的动作
     List.prototype.insertPlayFunction = function (listChild) {
         var self = music.listObj;
+
+        //如果没有时间
+        if(listChild.dt == undefined){
+            listChild.dt = 0;
+        }
         //如果播放列表已有这首歌，直接播放
         for (var i in self.list) {
             if (self.list[i].id == listChild.id && self.list[i].source == listChild.source) {
@@ -139,7 +144,7 @@
                 '</span> <span style="float:left;width:30%;margin-right:0px;">' + list[i].name +
                 '</span>';
             //是否有时间
-            if (list[i].dt) {
+            if (list[i].dt!=undefined) {
                 html = html +
                     '<span style="width:3em;float:right;margin-right:10%">' + time +
                     '</span>'

@@ -95,7 +95,7 @@
         //判断是否为同一首歌
         if (self.listObj.list[now].id == self.preMusicId) {
             if (autoPlay && self.audio.paused) {
-                self.audio.play();
+                self.play();
             }
             return;
         }
@@ -182,7 +182,7 @@
         if (!self.listObj.list) {
             return;
         }
-        // music.sequenceObj.setNow(0);
+        music.sequenceObj.index = 0;
         music.sequenceObj.setLen(music.listObj.list.length);
         console.info(music.sequenceObj.now());
         //推入HTML中
@@ -230,13 +230,18 @@
             self.volume.find('.volumeBox').fadeToggle(300);
             return false;
         });
+        $(window).click(function () {
+            self.volume.find('.volumeBox').fadeOut(300);
+        })
         // 点击
         volumeMove.click(function (e) {
             changeVolume(e.offsetX);
+            return false;
         });
         //滑动
         $(window).mouseup(function () {
             volumeMove.unbind('mousemove');
+            return false;
         });
         volumeMove.mousedown(function () {
             volumeMove.mousemove(function (e) {
@@ -245,7 +250,7 @@
             });
             return false;
         });
-        changeVolume(20);
+        changeVolume(50);
         function changeVolume(offsetX) {
             if (offsetX < 6 || offsetX > volumeLen + 6) {
                 return;
@@ -258,7 +263,7 @@
             if (volume == 0) {          //音量为0使用这个图标
                 self.volume.find('i').attr('class', 'fa fa-volume-off volumeButton');
             }
-            else if (volume < 0.5) {        
+            else if (volume < 0.5) {
                 self.volume.find('i').attr('class', 'fa fa-volume-down volumeButton');
             }
             else {
@@ -266,6 +271,7 @@
             }
             self.audio.volume = volume;
         }
+
 
         //进度条
         this.progress.onclick = function (e) {
