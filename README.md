@@ -1,2 +1,2 @@
 # dagougou
-* [Music](https://dagougou.github.io/Music+)
+* [音乐] （https://dagougou.github.io/Music+)
