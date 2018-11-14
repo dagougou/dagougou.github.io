@@ -1,2 +1,2 @@
 # dagougou
-* [音乐](https://dagougou.github.io/dagougou/README.md)
+* [音乐](https://dagougou.github.io/dagougou/FTSMusicPlayer)
